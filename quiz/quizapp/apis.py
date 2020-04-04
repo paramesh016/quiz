@@ -10,9 +10,8 @@ class QuizListAPI(generics.ListAPIView):
     serializer_class = quiz_serializers.QuizListSerializer
 
 
-
-class SubmitAPI(generics.ListAPIView):
-    query_set = Question.objects.all()
+class SubmitAPI(generics.ListCreateAPIView):
+    query_set = Answers.objects.all()
     serializer_class = quiz_serializers.QuestionOptionSerializer
 
 
@@ -21,7 +20,7 @@ class RightWrongAPI(APIView):
 
     def get(self, request, format=None):
         answers = {'answered': '', 'correct-answer': ''}
-        question_id = request.POST.get('question_id', '')
+        question_id = request.GET.get('question_id', '')
         question = Question.objects.filter(id=question_id)
         if question:
             answered = Answers.objects.filter(question__id=question_id)
