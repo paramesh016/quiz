@@ -4,6 +4,6 @@ from quizapp import serializers as quiz_serializers
 
 
 class QuizListAPI(generics.ListAPIView):
-    queryset = Question.objects.all()
+    queryset = Quiz.objects.all()
     serializer_class = quiz_serializers.QuizListSerializer
 
