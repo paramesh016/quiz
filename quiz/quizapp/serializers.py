@@ -6,4 +6,6 @@ class QuizListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Quiz
-        fields = '__all__'
+        fields = ('quiz_title',)
+
+
