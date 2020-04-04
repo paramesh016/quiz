@@ -21,7 +21,9 @@ from quizapp import apis
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
-    url(r'^quiz-list/', apis.QuizListAPI.as_view()),
+    # url(r'^quiz-list/', apis.QuizListAPI.as_view()),
+    url(r'^submit-ans/', apis.SubmitAPI.as_view()),
+    url(r'^get-answer/', apis.RightWrongAPI.as_view()),
 
 
 ]

@@ -28,3 +28,4 @@ class Option(models.Model):
 class Answers(models.Model):
     user = models.ForeignKey(QuizUser, on_delete=models.CASCADE)
     answers = models.ForeignKey(Option, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
