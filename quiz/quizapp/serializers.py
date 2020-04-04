@@ -32,5 +32,5 @@ class QuestionOptionSerializer(serializers.ModelSerializer):
 
 class SubmitSerializer(serializers.ModelSerializer):
     class Meta:
-        model = account_model.Answer
+        model = Answers
         fields = ('user', 'answer', 'question')

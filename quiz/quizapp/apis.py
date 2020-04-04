@@ -2,7 +2,8 @@ from rest_framework import generics
 from .models import *
 from quizapp import serializers as quiz_serializers
 from rest_framework.views import APIView
-
+from django.http import HttpResponse, JsonResponse
+from rest_framework import status
 
 class QuizListAPI(generics.ListAPIView):
     queryset = Quiz.objects.all()
@@ -18,7 +19,7 @@ class SubmitAPI(generics.ListAPIView):
 
 class RightWrongAPI(APIView):
 
-    def post(self, request, format=None):
+    def get(self, request, format=None):
         answers = {'answered': '', 'correct-answer': ''}
         question_id = request.POST.get('question_id', '')
         question = Question.objects.filter(id=question_id)
@@ -29,22 +30,23 @@ class RightWrongAPI(APIView):
                 answers.update({'answered': answered[0].option})
             if option:
                 answers.update({'correct_answer': option[0].option})
-        return answers
+        return JsonResponse(answers, status=status.HTTP_202_ACCEPTED, safe=False)
 
 
 
-class ScoreApi(LoggingMixin, APIView):
+class ScoreApi(APIView):
     def get(self, request, format=None):
         score = 0
         user_id = request.GET.get('user_id', '')
         question = request.GET.get('question', '')
-        answers = quiz_model.Answers.objects.filter(user__user_id=user_id, question=question)
+        answers = Answers.objects.filter(user__id=user_id, question=question)
         for answer in answers:
             if answer.is_correct:
                 score =+ answer.question.score
-        return score
+        return JsonResponse(score, status=status.HTTP_202_ACCEPTED, safe=False)
 
-class ScoreCsvApi(LoggingMixin, APIView):
+
+class ScoreCsvApi(APIView):
     def get(self, request, format=None):
         fname = "user_score.csv"
         loc = '/quiz/quizapp/' + 'csv_files/'
@@ -54,7 +56,7 @@ class ScoreCsvApi(LoggingMixin, APIView):
             csvwriter = csv.writer(csvfile)
             csvwriter.writerow(['User', 'Question', 'Answer', 'score'])
             csv_data = []
-            answers = quiz_model.Answers.objects.all()\
+            answers = Answers.objects.all()\
                 .values_list('user__user_id','question__question' ,'answers__option', 'question__score',)
             for i in answers:
                 data = [i]

@@ -24,6 +24,7 @@ urlpatterns = [
     # url(r'^quiz-list/', apis.QuizListAPI.as_view()),
     url(r'^submit-ans/', apis.SubmitAPI.as_view()),
     url(r'^get-answer/', apis.RightWrongAPI.as_view()),
-
+    url(r'^user-score/$', apis.ScoreApi.as_view()),
+    url(r'^score-csv/$', apis.ScoreCsvApi.as_view()),
 
 ]
