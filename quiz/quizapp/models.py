@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class QuizUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    experience = models.IntegerField(max_length=2)
+    experience = models.IntegerField()
     
 
 class Quiz(models.Model):
@@ -14,17 +14,17 @@ class Quiz(models.Model):
 
 
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz)
-    questions = models.CharField(blank=False)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    questions = models.CharField(blank=False, max_length=256)
     score = models.FloatField(default=1)
 
 
 class Option(models.Model):
-    questions = models.ForeignKey(Question)
-    option = models.ForeignKey(quiz)
+    questions = models.ForeignKey(Question, on_delete=models.CASCADE)
+    option = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     is_correct = models.BooleanField(default=False)
 
 
 class Answers(models.Model):
-    user = models.ForeignKey(QuizUser)
-    answers = models.ForeignKey(Option)
+    user = models.ForeignKey(QuizUser, on_delete=models.CASCADE)
+    answers = models.ForeignKey(Option, on_delete=models.CASCADE)
