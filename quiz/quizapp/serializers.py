@@ -28,4 +28,9 @@ class QuestionOptionSerializer(serializers.ModelSerializer):
                 opt_dict.update({'id': option.id, 'option': option.option, 'is_correct': option.is_correct})
                 option_list.append(opt_dict)
         return option_list
-        
+
+
+class SubmitSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = account_model.Answer
+        fields = ('user', 'answer', 'question')

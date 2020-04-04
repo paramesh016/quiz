@@ -31,3 +31,32 @@ class RightWrongAPI(APIView):
                 answers.update({'correct_answer': option[0].option})
         return answers
 
+
+
+class ScoreApi(LoggingMixin, APIView):
+    def get(self, request, format=None):
+        score = 0
+        user_id = request.GET.get('user_id', '')
+        question = request.GET.get('question', '')
+        answers = quiz_model.Answers.objects.filter(user__user_id=user_id, question=question)
+        for answer in answers:
+            if answer.is_correct:
+                score =+ answer.question.score
+        return score
+
+class ScoreCsvApi(LoggingMixin, APIView):
+    def get(self, request, format=None):
+        fname = "user_score.csv"
+        loc = '/quiz/quizapp/' + 'csv_files/'
+        filename = fname
+        _fname = '%s%s' % (loc, filename)
+        with open(_fname, 'w', encoding='utf-8') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerow(['User', 'Question', 'Answer', 'score'])
+            csv_data = []
+            answers = quiz_model.Answers.objects.all()\
+                .values_list('user__user_id','question__question' ,'answers__option', 'question__score',)
+            for i in answers:
+                data = [i]
+                csv_data.append(data)
+            csvwriter.writerows(csv_data)
