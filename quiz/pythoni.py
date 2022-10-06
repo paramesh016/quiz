@@ -24,6 +24,7 @@ listi.reverse()
 listi.count(1)
 listi1 = listi
 listi2 = listi.sort()
+listi4 = sorted(listi, reverse=True)        #another way to sort and store in diff variable
 temp = listi.index(1)
 listi3 = listi.copy()
 
