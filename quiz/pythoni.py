@@ -36,9 +36,7 @@ while i <= listi_len:
     i+=1
     index_listi.append(res)
 print('found--{}'.format(set(index_listi)))
-
-
-
+print(min(listi))
 
 
 
