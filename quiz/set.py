@@ -24,7 +24,8 @@ print(seti.intersection(seti1))
 print(seti-seti1)
 print(seti^seti1)
 print(seti.isdisjoint(seti1))
-
+print(seti.issuperset(seti1))
+print(seti.issubset(seti1))
 
 
 
