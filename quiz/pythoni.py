@@ -4,6 +4,12 @@ tupli = (1,2,3,7,6,5,1)
 seti = {1,2,3,7,6,5,1}
 dicti = {1:'one', 2:'two', 7:'seven', 6:'six', 5:'five'}
 
+#List**************************************************************************************************
+listi1 =  [1,2,3,7,6,5,1]
+listi2 = listi
+print(listi is listi1)
+print(listi is listi2)
+print(1 in listi)
 
 print(id(listi))
 listi.append(8)
