@@ -22,20 +22,20 @@ temp = listi.index(1)
 listi3 = listi.copy()
 
 #find item's index 
-enter_item = 1
+enter_item = 5
 listi_len = len(listi)
 i=0
 index_listi = []
 
+print(listi)
 while i <= listi_len:
-    res = listi.index(enter_item,i,listi_len)
+    try:
+        res = listi.index(enter_item,i,listi_len)
+    except ValueError:
+        break
     i+=1
-    if res != -1:
-        index_listi.append(res)
-    print('found--{}'.format(index_listi))
-
-
-print('found--{}'.format(index_listi))
+    index_listi.append(res)
+print('found--{}'.format(set(index_listi)))
 
 
 
