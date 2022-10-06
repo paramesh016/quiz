@@ -23,7 +23,7 @@ print(seti.union(seti1))
 print(seti.intersection(seti1))
 print(seti-seti1)
 print(seti^seti1)
-
+print(seti.isdisjoint(seti1))
 
 
 
